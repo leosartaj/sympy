@@ -269,9 +269,6 @@ matrix:
             - pypy
 
 before_install:
-  - if [[ "${TEST_COVERAGE}" == "true" ]]; then
-      pip install codecov coverage;
-    fi
   - if [[ "${FASTCACHE}" != "false" ]]; then
       pip install fastcache;
     fi
@@ -327,6 +324,10 @@ install:
       python setup.py install;
     elif [[ "${TEST_SAGE}" != "true" ]]; then
       python setup.py install;
+    fi
+before_script:
+  - if [[ "${TEST_COVERAGE}" == "true" ]]; then
+      pip install codecov coverage;
     fi
 script:
   - bin/test_travis.sh
